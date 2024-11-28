@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: {
     template: "%s - AI Resume Builder",
-    absolute: "AI Resume Builder",
+    absolute: "CareerCraftAI",
   },
   description:
     "AI Resume Builder is a powerful tool to create a professional resume.",
