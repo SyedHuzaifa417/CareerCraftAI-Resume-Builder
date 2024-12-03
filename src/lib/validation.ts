@@ -91,6 +91,7 @@ export const resumeSchema = z.object({
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
+  //2:44 coding in flow yt
   id?: string;
   photo?: File | string | null;
 };

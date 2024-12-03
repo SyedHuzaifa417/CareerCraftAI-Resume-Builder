@@ -20,15 +20,15 @@ export default function PersonalInfoForm({
 }: EditorFormProps) {
   const form = useForm<PersonalInfoValues>({
     resolver: zodResolver(personalInfoSchema),
-    // defaultValues: {
-    //   firstName: resumeData.firstName || "",
-    //   lastName: resumeData.lastName || "",
-    //   jobTitle: resumeData.jobTitle || "",
-    //   city: resumeData.city || "",
-    //   country: resumeData.country || "",
-    //   phone: resumeData.phone || "",
-    //   email: resumeData.email || "",
-    // },
+    defaultValues: {
+      firstName: resumeData.firstName || "",
+      lastName: resumeData.lastName || "",
+      jobTitle: resumeData.jobTitle || "",
+      city: resumeData.city || "",
+      country: resumeData.country || "",
+      phone: resumeData.phone || "",
+      email: resumeData.email || "",
+    },
   });
 
   useEffect(() => {
