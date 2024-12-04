@@ -35,7 +35,7 @@ export default function SkillsForm({
           values.skills
             ?.filter((skill) => skill !== undefined)
             .map((skill) => skill.trim())
-            .filter((skill) => skill !== "") || [],
+            .filter((skill) => skill !== "") || [], //3:27 yt
       });
     });
     return unsubscribe;

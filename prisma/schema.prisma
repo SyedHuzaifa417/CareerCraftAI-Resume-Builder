@@ -10,7 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL") // uses connection pooling
+  //directUrl=env("DATABASE_directUrl") uses direct connection
 }
 
 model Resume {
@@ -33,6 +34,8 @@ model Resume {
   email       String?
 
   workExperiences WorkExperience[]
+  educations      Education[]
+  skills          String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -56,4 +59,37 @@ model WorkExperience {
   updatedAt DateTime @updatedAt
 
   @@map("work_experiences")
+}
+
+model Education {
+  id String @id @default(cuid())
+
+  degree String?
+  school String?
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("educations")
+}
+
+model UserSubscription {
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  stripeCustomerId        String   @unique
+  stripeSubscriptionId    String   @unique
+  stripePriceId           String
+  stripeCurrentPeriodEnd  DateTime
+  stripeCancelAtPeriodEnd Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_subscriptions")
 }
