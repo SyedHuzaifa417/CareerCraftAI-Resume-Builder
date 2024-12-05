@@ -7,14 +7,25 @@ import Breadcrumbs from "./Breadcrumbs";
 import Footer from "./Footer";
 import { ResumeValues } from "@/lib/validation";
 import ResumePreviewSection from "./ResumePreviewSection";
-import { cn } from "@/lib/utils";
+import { cn, mapToResumeValues } from "@/lib/utils";
+import useUnloadWarning from "@/hooks/useUnloadWarning";
+import useAutoSaveResume from "./useAutoSaveResume";
+import { ResumeServerData } from "@/lib/types";
 
-const ResumeEditor = () => {
+interface ResumeEditorProps {
+  resumeToEdit: ResumeServerData | null;
+}
+const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
   const searchParams = useSearchParams();
 
-  const [resumeData, setResumeData] = useState<ResumeValues>({});
+  const [resumeData, setResumeData] = useState<ResumeValues>(
+    resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
+  );
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
+
+  const { isSaving, hasUnsavedChanges } = useAutoSaveResume(resumeData);
+  useUnloadWarning(hasUnsavedChanges);
 
   const currentStep = searchParams.get("step") || steps[0].key;
   //Looks for the step parameter in the URL. If step is not found, it defaults to the first step
@@ -70,6 +81,7 @@ const ResumeEditor = () => {
         setCurrentStep={setStep}
         showSmResumePreview={showSmResumePreview}
         setShowSmResumePreview={setShowSmResumePreview}
+        isSaving={isSaving} //useAutoSaveResume where it takes 1500ms to check if there are any changes
       />
     </div>
   );

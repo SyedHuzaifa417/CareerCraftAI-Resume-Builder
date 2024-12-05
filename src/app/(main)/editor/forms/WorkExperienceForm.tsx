@@ -66,6 +66,7 @@ export default function WorkExperienceForm({
   });
 
   const sensors = useSensors(
+    //dnd kit docs
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
