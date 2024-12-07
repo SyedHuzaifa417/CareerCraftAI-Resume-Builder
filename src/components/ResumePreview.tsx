@@ -9,11 +9,13 @@ import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
+  contentRef?: React.Ref<HTMLDivElement>;
   className?: string;
 }
 
 export default function ResumePreview({
   resumeData,
+  contentRef, //we didnt have to wrap this component in forwardRef because we use contentRef as a prop, if we named it as ref like in <ResumeItem ref={contentRef} /> then we had to destructure the ref prop here and had to wrap
   className,
 }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,8 @@ export default function ResumePreview({
         style={{
           zoom: (1 / 794) * width, //794 is the width of A-4 paper in pixels which we set in aspect ratio as 210 in mm
         }}
+        ref={contentRef}
+        id="resumePreviewContent" //to use it in global.css so we can print the resume with correct styling else the style is very bad in printed version
       >
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />

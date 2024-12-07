@@ -49,7 +49,7 @@ export default function SummaryForm({
             control={form.control}
             name="summary"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col items-center gap-3">
                 <FormLabel className="sr-only">Professional summary</FormLabel>
                 <FormControl>
                   <Textarea

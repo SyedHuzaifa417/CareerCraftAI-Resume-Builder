@@ -1,6 +1,12 @@
 "use server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { GenerateSummaryInput, generateSummarySchema } from "./validation";
+import {
+  GenerateSummaryInput,
+  generateSummarySchema,
+  GenerateWorkExperienceInput,
+  generateWorkExperienceSchema,
+  WorkExperience,
+} from "./validation";
 
 const apiKey = process.env.GEMINI_API_KEY ?? "";
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -75,4 +81,64 @@ export async function generateSummary(input: GenerateSummaryInput) {
   }
 
   return aiResponse;
+}
+
+export async function generateWorkExperience(
+  input: GenerateWorkExperienceInput,
+) {
+  const { description } = generateWorkExperienceSchema.parse(input);
+
+  const systemMessage = `
+ You are a professional resume generator AI. Generate a structured work experience entry based on the user's description.
+  
+  Your response MUST be in EXACTLY this format with NO additional text:
+  Job title: [Job Title]
+  Company: [Company Name]
+  Start date: [YYYY-MM-DD or empty]
+  End date: [YYYY-MM-DD or empty]
+  Description: [4 points of only Detailed description in • bullet points without commentry or additional text or suggestions, if information is not sufficient , improvise using provided information]
+  
+  If any information is missing or unclear, use best judgment to infer or leave empty.`;
+
+  const userMessage = [
+    {
+      text: `
+    Please provide a work experience entry from this description:
+    ${description}
+    `,
+    },
+  ];
+
+  const chatSession = model.startChat({
+    generationConfig,
+    history: [
+      {
+        role: "user",
+        parts: userMessage,
+      },
+      {
+        role: "model",
+        parts: [{ text: systemMessage }],
+      },
+    ],
+  });
+
+  const aiResponse = (
+    await chatSession.sendMessage(userMessage)
+  ).response.text();
+
+  if (!aiResponse) {
+    throw new Error("Failed to generate AI response");
+  }
+  console.log("aiResponse", aiResponse);
+
+  return {
+    position: aiResponse.match(/Job title: (.*)/)?.[1] || "",
+    company: aiResponse.match(/Company: (.*)/)?.[1] || "",
+    description: (aiResponse.match(/Description:([\s\S]*)/)?.[1] || "").trim(),
+    startDate: aiResponse.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1],
+    endDate: aiResponse.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1],
+    // city: aiResponse.match(/City: (.*)/)?.[1] || "",
+    // country: aiResponse.match(/Country: (.*)/)?.[1] || "",
+  } satisfies WorkExperience; //this is regex matches destructure written with help of chatgpt
 }

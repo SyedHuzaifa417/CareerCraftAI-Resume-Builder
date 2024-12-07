@@ -70,3 +70,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* the make the printed page look same in preview */
+@media print {
+  #resumePreviewContent {
+    zoom: 1 !important;
+    padding: 0;
+  }
+}
+
+#resumePreviewContent {
+  font-family: Inter;
+}
+
+@page {
+  size: A4;
+  margin: 0.6cm;
+}
