@@ -4,7 +4,7 @@ import stripe from "@/lib/stripe";
 import { clerkClient } from "@clerk/nextjs/server";
 import { NextRequest } from "next/server";
 import Stripe from "stripe";
-
+///  9:46
 export async function POST(req: NextRequest) {
   try {
     const payload = await req.text();
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const event = stripe.webhooks.constructEvent(
       payload,
       signature,
-      env.STRIPE_WEBHOOK_SECRET,
+      env.STRIPE_WEBHOOK_SECRET, //to acess the secret key 1.yt 2. the secret key is in webhook then look for signing secret after creating webhook
     );
 
     console.log(`Received event: ${event.type}`, event.data.object);

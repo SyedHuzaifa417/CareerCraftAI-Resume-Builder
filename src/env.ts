@@ -1,5 +1,6 @@
 //9:00 t3 env pkg
 import { createEnv } from "@t3-oss/env-nextjs";
+
 import { z } from "zod";
 
 export const env = createEnv({
@@ -11,6 +12,7 @@ export const env = createEnv({
     CLERK_SECRET_KEY: z.string().min(1),
     GEMINI_API_KEY: z.string().min(1),
     STRIPE_SECRET_KEY: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),

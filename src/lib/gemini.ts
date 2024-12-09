@@ -7,6 +7,9 @@ import {
   generateWorkExperienceSchema,
   WorkExperience,
 } from "./validation";
+import { auth } from "@clerk/nextjs/server";
+import { getUserSubscriptionLevel } from "./subscription";
+import { canUseAITools } from "./permissions";
 
 const apiKey = process.env.GEMINI_API_KEY ?? "";
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -19,8 +22,20 @@ const generationConfig = {
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
 };
-
+//9:37
 export async function generateSummary(input: GenerateSummaryInput) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+  const subscriptionLevel = await getUserSubscriptionLevel(userId); //since this is the server component so we can directly call subscription from db
+
+  if (!canUseAITools(subscriptionLevel)) {
+    throw new Error(
+      "AI tools not available for this subscription level,Please upgrade",
+    );
+  }
   const { jobTitle, workExperiences, educations, skills } =
     generateSummarySchema.parse(input);
 
@@ -86,6 +101,18 @@ export async function generateSummary(input: GenerateSummaryInput) {
 export async function generateWorkExperience(
   input: GenerateWorkExperienceInput,
 ) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+  const subscriptionLevel = await getUserSubscriptionLevel(userId); //since this is the server component so we can directly call subscription from db
+
+  if (!canUseAITools(subscriptionLevel)) {
+    throw new Error(
+      "AI tools not available for this subscription level,Please upgrade",
+    );
+  }
   const { description } = generateWorkExperienceSchema.parse(input);
 
   const systemMessage = `
