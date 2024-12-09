@@ -9,7 +9,7 @@ export default function Page() {
     <main className="mx-auto max-w-prose space-y-6 p-3 py-6">
       <h1 className="text-center text-2xl font-bold">Terms of Service</h1>
       <p className="text-center text-sm text-muted-foreground">
-        Effective Date: Oct 31, 2024
+        Effective Date: Dec 31, 2024
       </p>
       <p>
         Welcome to AI Resume Builder. These Terms of Service (&quot;Terms&quot;)

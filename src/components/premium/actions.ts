@@ -1,6 +1,6 @@
 "use server";
 
-import { env } from "@/env";
+import { env } from "@/env"; //8:59 t3 env pkg
 import stripe from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -16,9 +16,10 @@ export async function createCheckoutSession(priceId: string) {
     | undefined;
 
   const session = await stripe.checkout.sessions.create({
+    //8:45
     line_items: [{ price: priceId, quantity: 1 }],
     mode: "subscription",
-    success_url: `${env.NEXT_PUBLIC_BASE_URL}/billing/success`,
+    success_url: `${env.NEXT_PUBLIC_BASE_URL}/billing/success`, //redirect
     cancel_url: `${env.NEXT_PUBLIC_BASE_URL}/billing`,
     customer: stripeCustomerId,
     customer_email: stripeCustomerId
