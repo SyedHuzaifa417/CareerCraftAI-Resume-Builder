@@ -120,6 +120,7 @@ export default function EducationForm({
                   school: "",
                   startDate: "",
                   endDate: "",
+                  city: "",
                 })
               }
             >
@@ -188,6 +189,19 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>School</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`educations.${index}.city`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>City</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>

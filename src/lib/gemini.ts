@@ -121,6 +121,7 @@ export async function generateWorkExperience(
   Your response MUST be in EXACTLY this format with NO additional text:
   Job title: [Job Title]
   Company: [Company Name]
+  City: [City Name]
   Start date: [YYYY-MM-DD or empty]
   End date: [YYYY-MM-DD or empty]
   Description: [4 points of only Detailed description in • bullet points without commentry or additional text or suggestions, if information is not sufficient , improvise using provided information]
@@ -165,7 +166,6 @@ export async function generateWorkExperience(
     description: (aiResponse.match(/Description:([\s\S]*)/)?.[1] || "").trim(),
     startDate: aiResponse.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1],
     endDate: aiResponse.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1],
-    // city: aiResponse.match(/City: (.*)/)?.[1] || "",
-    // country: aiResponse.match(/Country: (.*)/)?.[1] || "",
+    city: aiResponse.match(/City: (.*)/)?.[1] || "",
   } satisfies WorkExperience; //this is regex matches destructure written with help of chatgpt
 }

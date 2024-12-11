@@ -125,6 +125,7 @@ export default function WorkExperienceForm({
                   startDate: "",
                   endDate: "",
                   description: "",
+                  city: "",
                 })
               }
             >
@@ -188,6 +189,7 @@ function WorkExperienceItem({
               startDate: exp.startDate || "",
               endDate: exp.endDate || "",
               description: exp.description || "",
+              city: exp.city || "",
             })
           }
         />
@@ -211,6 +213,19 @@ function WorkExperienceItem({
         render={({ field }) => (
           <FormItem>
             <FormLabel>Company</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`workExperiences.${index}.city`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>City</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>

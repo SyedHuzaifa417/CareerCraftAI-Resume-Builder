@@ -51,6 +51,7 @@ model WorkExperience {
   startDate   DateTime?
   endDate     DateTime?
   description String?
+  city        String?
 
   resumeId String
   resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade) //onDelete cascade will delete this work experience or eduction entry from resume when we try to delete resume
@@ -64,9 +65,9 @@ model WorkExperience {
 model Education {
   id String @id @default(cuid())
 
-  degree String?
-  school String?
-
+  degree    String?
+  school    String?
+  city      String?
   startDate DateTime?
   endDate   DateTime?
 
