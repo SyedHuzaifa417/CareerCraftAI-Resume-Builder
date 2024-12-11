@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CareerCraft AI
 
-## Getting Started
+CareerCraft AI is a comprehensive career management platform designed to simplify the process of creating resumes, managing subscriptions, and leveraging AI-powered tools to enhance your professional profile. This project is powered by modern technologies to ensure a seamless and responsive user experience.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Core Features
+- **AI-Powered Assistance**:
+  - Powered by Gemini AI to generate work experience and summaries with a single click.
+- **Resume Management**:
+  - Drag-and-drop functionality for organizing resumes (powered by `dnd-kit`).
+  - Resume customization and export using `react-to-print`.
+- **Subscription Plans**:
+  - **Pro Monthly**: Access to AI tools and 3 resume creations.
+  - **Pro Plus Monthly**: Unlimited resumes, AI tools, and customization options.
+  - Subscriptions can be updated, canceled, and renewed through Stripe integration.
+- **Authentication and Authorization**:
+  - User authentication and authorization with `Clerk`.
+- **Image Management**:
+  - Cloudinary integration for secure image storage.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Theming and Styling
+- **Dark Mode and Light Mode**:
+  - Theme toggling with `next-themes` (including system theme support).
+- **Responsive Design**:
+  - Built with `shadcn/ui` and `Tailwind CSS` for a modern and accessible user interface.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Form Management and Validation
+- **Forms**:
+  - Efficient form handling using `react-hook-form`.
+  - Schema validation with `zod`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### State Management
+- **State Handling**:
+  - Managed application state with `zustand`.
 
-## Learn More
+### Type Safety
+- **TypeScript**:
+  - Ensures type safety throughout the application.
 
-To learn more about Next.js, take a look at the following resources:
+### Database and ORM
+- **Database**:
+  - Powered by Neon DB for fast and reliable database operations.
+- **ORM**:
+  - Prisma ORM for seamless database interaction.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tools and Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Frontend
+- **Next.js 15**: For server-side rendering and dynamic routing.
+- **TypeScript**: Provides type safety across the application.
+- **Tailwind CSS**: For custom, responsive, and utility-first styling.
+- **shadcn/ui**: Ensures a responsive and consistent design.
 
-## Deploy on Vercel
+### Backend
+- **Prisma ORM**: Simplifies database operations.
+- **Neon DB**: A modern database solution.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Authentication
+- **Clerk**: Provides secure user authentication and authorization.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### AI and Resume Management
+- **Gemini AI**: Powers AI tools for generating professional content.
+- **react-to-print**: Enables users to print resumes effortlessly.
+- **dnd-kit**: Facilitates drag-and-drop functionality for resume organization.
+
+### Subscriptions and Payments
+- **Stripe**: Handles secure subscription payments and management.
+
+### Image Storage
+- **Cloudinary**: Manages image uploads and storage securely.
+
+### Additional Tools
+- **zustand**: Lightweight state management library.
+- **react-hook-form**: Simplifies form handling.
+- **zod**: Validates form inputs.
+- **next-themes**: Provides light, dark, and system themes.
+
+## Installation and Setup
+
+To run the project locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SyedHuzaifa417/CareerCraftAI-Resume-Builder.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd CareerCraftAI-Resume-Builder
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Set up environment variables:
+   Create a `.env` file in the root directory and add the required environment variables for:
+   ```bash
+   
+    DATABASE_URL=******************
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=******************
+    CLERK_SECRET_KEY=******************
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL='/sign-in'
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL='/sign-up'
+    CLOUDINARY_CLOUD_NAME=******************
+    CLOUDINARY_API_KEY=******************
+    CLOUDINARY_API_SECRET=******************
+    GEMINI_API_KEY=******************
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="******************"
+    STRIPE_SECRET_KEY="******************"
+    NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_MONTHLY="******************"
+    NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_PLUS_MONTHLY="******************"
+    STRIPE_WEBHOOK_SECRET="******************"
+    NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open your browser and visit:
+   ```
+   http://localhost:3000
+   ```
+
+## Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the project for production.
+- `npm run start`: Runs the production build.
+- `npx prisma studio`: Opens Prisma Studio for database management.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature-name`.
+3. Commit your changes: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin feature-name`.
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
+## Acknowledgments
+
+- Special thanks to the developers of the tools and libraries used in this project.
